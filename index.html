@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Helps the browser identify support for mobile applications -->
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Title on the browser tab -->
+    <title>WebGIS</title>
+    <!-- Leaflet CSS Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <!-- Leaflet JavaScript Library -->
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <!-- Style for the fullscreen map display -->
+    <style>
+      html,
+      body,
+      #map {
+        height: 100%;
+        width: 100%;
+        margin: 0%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HTML Block to display the map -->
+    <div id="map"></div>
+    <script>
+      /* Initial Map */
+      //lat, long, zoom (the initial view can be determined from Google Earth)
+      var map = L.map('map').setView([-6.175484848583899, 106.82650707683047], 10);
+      /* Tile Basemap */
+      var basemap0 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <ahref="http://www.openstreetmap.org/copyright" > OpenStreetMap</a>',
+      });
+      var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{ x } ', {
+        attribution: 'Tiles & copy; Esri & mdash; Source: Esri, i - cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR - EGP, and the GIS User Community',
+      });
+      var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution:
+          'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+      });
+      OpenTopoMap.addTo(map);
+      Esri_WorldImagery.addTo(map); //Calls the basemap to be displayed when the page is loaded
+      /*Control Layer*/
+      var baseMaps = {
+        /*yang kuning adalah nama yang muncul, yan putih adalah nama variabel*/
+        'Open Street Map': basemap0,
+        'Open Topo Map': OpenTopoMap,
+        'Esri WorldImagery': Esri_WorldImagery,
+      };
+
+      var Layers = {};
+      var layerControl = L.control.layers(baseMaps, Layers, { collapsed: false });
+      layerControl.addTo(map);
+
+      var marker = L.marker([-6.175484848583899, 106.82650707683047]); // you can change the coordinate
+
+      // custom marker
+      var customIcon1 = L.icon({
+        iconUrl: 'tourism.png',
+        iconSize: [40, 40],
+      });
+
+      var marker1 = L.marker([-6.16687341807951, 106.8230395724755], { icon: customIcon1 });
+      marker1.addTo(map);
+      marker1.bindPopup('Jalan Silang Monas Barat Laut, RT.5/RW.2, Gambir, RT.5/RW.2, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10110');
+      marker1.bindTooltip('Taman Pandang Istana');
+      marker1.addTo(map);
+      marker.openPopup();
+
+      var marker2 = L.marker([-6.191738999375647, 106.82966244705081], { icon: customIcon1 });
+      marker2.addTo(map);
+      marker2.bindPopup('Taman kodok, RT.3/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310');
+      marker2.bindTooltip('Taman Kodok Menteng');
+      marker2.addTo(map);
+      marker.openPopup();
+
+      var marker3 = L.marker([-6.198456037289266, 106.8326086925585], { icon: customIcon1 });
+      marker3.addTo(map);
+      marker3.bindPopup('Jl. Taman Suropati No.5, RT.5/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310');
+      marker3.bindTooltip('Taman Suropati');
+      marker3.addTo(map);
+      marker.openPopup();
+
+      var marker4 = L.marker([-6.131026467913267, 106.8133932319125], { icon: customIcon1 });
+      marker4.addTo(map);
+      marker4.bindPopup('Kawasan Kota Tua, Taman Fatahillah No.1 7, RT.7/RW.7, Pinangsia, Kec. Taman Sari, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11110');
+      marker4.bindTooltip('Kawasan Wisata Kota Tua Jakarta');
+      marker4.addTo(map);
+      marker.openPopup();
+
+      var marker5 = L.marker([-6.166479884908332, 106.83501123010998], { icon: customIcon1 });
+      marker5.addTo(map);
+      marker5.bindPopup('RRJM+4W5, Ps. Baru, Kecamatan Sawah Besar, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10710');
+      marker5.bindTooltip('Taman Lapangan Banteng');
+      marker.openPopup();
+
+      var marker6 = L.marker([-6.192403696622091, 106.83389690030599], { icon: customIcon1 });
+      marker6.addTo(map);
+      marker6.bindPopup('Jl. Lembang Terusan No.D-59, RT.6/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 12910');
+      marker6.bindTooltip('Taman Situ Lembang');
+      marker.openPopup();
+
+      var marker7 = L.marker([-6.190631168772544, 106.82943958109], { icon: customIcon1 });
+      marker7.addTo(map);
+      marker7.bindPopup('Jl. HOS. Cokroaminoto, RT.3/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310');
+      marker7.bindTooltip('Taman Menteng');
+      marker.openPopup();
+
+      var marker8 = L.marker([-6.1660367317957085, 106.819856344775642], { icon: customIcon1 });
+      marker8.addTo(map);
+      marker8.bindPopup('Jl. Tanah Abang I No.1, RT.11/RW.8, Petojo Sel., Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160');
+      marker8.bindTooltip('Museum Prasasti Jakarta');
+      marker.openPopup();
+
+      var marker9 = L.marker([-6.174456577628026, 106.87289844504606], { icon: customIcon1 });
+      marker9.addTo(map);
+      marker9.bindPopup('Gg. I No.3, RT.12/RW.3, Cemp. Putih Tim., Kec. Cemp. Putih, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10510');
+      marker9.bindTooltip('Desa Wisata Kampung Samtama RW 03 CPT');
+      marker.openPopup();
+
+      var marker10 = L.marker([-6.17467815071039, 106.82520512943513], { icon: customIcon1 });
+      marker10.addTo(map);
+      marker10.bindPopup('Jl. Medan Merdeka Sel. No.5, RT.5/RW.2, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10321');
+      marker10.bindTooltip('PASAR WISATA MONAS');
+      marker.openPopup();
+
+      var marker11 = L.marker([-6.189301769024986, 106.81896488253275], { icon: customIcon1 });
+      marker11.addTo(map);
+      marker11.bindPopup('Jl. M.H. Thamrin No.1, RT.1/RW.5, Kb. Melati, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10230');
+      marker11.bindTooltip('Galeri Indonesia Kaya');
+      marker.openPopup();
+
+      var marker12 = L.marker([-6.169360371155667, 106.8267651911607], { icon: customIcon1 });
+      marker12.addTo(map);
+      marker12.bindPopup('Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10110');
+      marker12.bindTooltip('Monumen Nasional');
+      marker.openPopup();
+
+      var marker13 = L.marker([-6.165815155143605, 106.87713289830124], { icon: customIcon1 });
+      marker13.addTo(map);
+      marker13.bindPopup('Jalan Pulo Mas Utara Blok E No.1, Kayu Putih, Pulo Gadung, RT.7/RW.15, Kayu Putih, Kec. Pulo Gadung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13210');
+      marker13.bindTooltip('Taman Ria Rio Jakarta');
+      marker.openPopup();
+
+      var marker14 = L.marker([-6.16094044443509, 106.83434263382787], { icon: customIcon1 });
+      marker14.addTo(map);
+      marker14.bindPopup('Jl. Gedung Kesenian No.1, Ps. Baru, Kecamatan Sawah Besar, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10710');
+      marker14.bindTooltip('Gedung Kesenian Jakarta');
+      marker.openPopup();
+
+      var marker15 = L.marker([-6.156287269722333, 106.85150331280938], { icon: customIcon1 });
+      marker15.addTo(map);
+      marker15.bindPopup('Jl. Benyamin Suaeb A No.5, RT.13/RW.6, Kb. Kosong, Kec. Kemayoran, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10630');
+      marker15.bindTooltip('Monumen Ondel-Ondel Kemayoran');
+      marker.openPopup();
+
+      var marker16 = L.marker([-6.12260593460174, 106.83879995304383], { icon: customIcon1 });
+      marker16.addTo(map);
+      marker16.bindPopup('Taman Impian Jaya, Jl. Lodan timur No.7, RW.10, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14430');
+      marker16.bindTooltip('Pasar Seni');
+      marker.openPopup();
+
+      var marker17 = L.marker([-6.198554840486259, 106.84633193025346], { icon: customIcon1 });
+      marker17.addTo(map);
+      marker17.bindPopup('Jl. Proklamasi No.10, RT.10/RW.2, Pegangsaan, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10320');
+      marker17.bindTooltip('Taman Proklamator');
+      marker.openPopup();
+
+      var marker18 = L.marker([-6.122850030199543, 106.83245034787898], { icon: customIcon1 });
+      marker18.addTo(map);
+      marker18.bindPopup('Jl. Lodan Timur No.7, RT.14/RW.10, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14430');
+      marker18.bindTooltip('Taman Impian Jaya Ancol');
+      marker.openPopup();
+
+      var marker19 = L.marker([-6.1656724733387325, 106.80691559746748], { icon: customIcon1 });
+      marker19.addTo(map);
+      marker19.bindPopup('Jl. Tomang Raya No.10A, RT.2/RW.6, Cideng, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10150');
+      marker19.bindTooltip('Taman Tomang');
+      marker.openPopup();
+
+      var marker20 = L.marker([-6.171133833911514, 106.78837616998914], { icon: customIcon1 });
+      marker20.addTo(map);
+      marker20.bindPopup('Letjen S. Parman No.28, RT.12/RW.6, Tj. Duren Sel., Kec. Grogol petamburan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470');
+      marker20.bindTooltip('Tribeca Park');
+      marker.openPopup();
+
+      var marker21 = L.marker([-6.194343987811846, 106.82305176582827], { icon: customIcon1 });
+      marker21.addTo(map);
+      marker21.bindPopup('QRXF+2W7, Jl. Kudus, RT.10/RW.6, Dukuh Atas, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310');
+      marker21.bindTooltip('Taman Kudus, Stasiun Sudirman');
+      marker.openPopup();
+
+      var marker22 = L.marker([-6.186493608595598, 106.8154986657445], { icon: customIcon1 });
+      marker22.addTo(map);
+      marker22.bindPopup('QRXH+52M, RT.11/RW.4, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310');
+      marker22.bindTooltip('Taman Sumenep');
+      marker.openPopup();
+
+      var marker23 = L.marker([-6.225744335815595, 106.79627259280399], { icon: customIcon1 });
+      marker23.addTo(map);
+      marker23.bindPopup('Jl. Sisingamangaraja No.2, Selong, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12110');
+      marker23.bindTooltip('Taman Mataram Jakarta');
+      marker.openPopup();
+
+      var marker24 = L.marker([-6.1588456935451745, 106.83781464326474], { icon: customIcon1 });
+      marker24.addTo(map);
+      marker24.bindPopup('RRMQ+3M3, Jl. Dr. Wahidin I, Ps. Baru, Kecamatan Sawah Besar, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10710');
+      marker24.bindTooltip('Taman Dr. Wahidin');
+      marker.openPopup();
+
+      var marker25 = L.marker([-6.123345025854852, 106.78150971536753], { icon: customIcon1 });
+      marker25.addTo(map);
+      marker25.bindPopup('Jl. Kepanduan II, RT.7/RW.16, Pejagalan, Kec. Penjaringan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14450');
+      marker25.bindTooltip('Taman Hutan Kota Penjaringan');
+      marker.openPopup();
+
+      var marker26 = L.marker([-6.238030918040485, 106.79592927007292], { icon: customIcon1 });
+      marker26.addTo(map);
+      marker26.bindPopup('7, Jl. Lamandau III No.RT.4, RT.4/RW.7, Kramat Pela, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12130');
+      marker26.bindTooltip('Taman Ayodia - Barito');
+      marker.openPopup();
+
+      var marker27 = L.marker([-6.190307024144407, 106.82440648613091], { icon: customIcon1 });
+      marker27.addTo(map);
+      marker27.bindPopup('RR4F+863, RT.9/RW.5, 5, Gondangdia, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350');
+      marker27.bindTooltip('Bundaran Hl viewing platform');
+      marker.openPopup();
+
+      var marker28 = L.marker([-6.175177678485948, 106.84581691780775], { icon: customIcon1 });
+      marker28.addTo(map);
+      marker28.bindPopup('Jl. Kramat Raya No.106, RT.2/RW.9, Kwitang, Kec. Senen, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10420');
+      marker28.bindTooltip('Museum Sumpah Pemuda');
+      marker.openPopup();
+
+      var marker29 = L.marker([-6.175211978972624, 106.8560401676821], { icon: customIcon1 });
+      marker29.addTo(map);
+      marker29.bindPopup('Jl. Johar Baru Utara I No.1 1, RT.9/RW.3, Johar Baru, Kec. Johar Baru, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10560');
+      marker29.bindTooltip('Taman Segitiga Johar Baru');
+      marker.openPopup();
+
+      var marker30 = L.marker([-6.209191124822639, 106.82107199762208], { icon: customIcon1 });
+      marker30.addTo(map);
+      marker30.bindPopup('QRP9+QV6, RT.10/RW.11, Karet Tengsin, Kecamatan Setiabudi, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10250');
+      marker30.bindTooltip('Jembatan Phinisi');
+      marker.openPopup();
+
+      var marker31 = L.marker([-6.195008786202384, 106.84677045394291], { icon: customIcon1 });
+      marker31.addTo(map);
+      marker31.bindPopup('Jl. Pangeran Diponegoro No.76 2, RT.2/RW.6, Kenari, Kec. Senen, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10430');
+      marker31.bindTooltip('Diponegoro Park');
+      marker.openPopup();
+
+      var marker32 = L.marker([-6.11991353524476, 106.84299390390105], { icon: customIcon1 });
+      marker32.addTo(map);
+      marker32.bindPopup('Jl. Lodan timur No.7, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14430');
+      marker32.bindTooltip('Jakarta Bird Land');
+      marker.openPopup();
+    </script>
+  </body>
+</html>
